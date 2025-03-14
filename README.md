@@ -166,9 +166,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 ## Contributions
-**Mohammed Faisal**
-**Mohammed Asjad Zaki**
-**Mohammed Thalha**
+
+- Mohammed Faisal
+- Mohammed Asjad Zaki
+- Mohammed Thalha
 <div align="center">
   <sub>Built with ❤️</sub>
 </div>
