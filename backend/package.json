@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "main": "server.js",
     "scripts": {
-      "start": "node server.js"
+      "start": "node server.js",
+      "init-db": "node init-db.js",
+      "test-db": "node test-connection.js"
     },
     "dependencies": {
       "body-parser": "^1.20.3",

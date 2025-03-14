@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-services:
-  - type: web
-    name: cahcetcollege-frontend
-    env: static
-    nodeVersion: 18.x
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./build
-    envVars:
-      - key: REACT_APP_API_URL
-        value: https://cahcetcollege-backend.onrender.com
-      - key: GENERATE_SOURCEMAP
-        value: false
-      - key: SKIP_PREFLIGHT_CHECK
-        value: true
-      - key: NODE_ENV
-        value: production 
-=======
 # Exported from Render on 2025-03-14T10:52:38Z
 services:
 - type: web
@@ -40,4 +22,22 @@ services:
   buildCommand: npm install && cd server && npm install
   startCommand: npm run start
 version: "1"
->>>>>>> 8e372ecffeb1b9978b0aa7456557fed31cf509a3
+
+services:
+  - type: web
+    name: cahcetcollege-frontend
+    env: static
+    nodeVersion: 18.x
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://cahcetcollege-backend.onrender.com
+      - key: GENERATE_SOURCEMAP
+        value: false
+      - key: SKIP_PREFLIGHT_CHECK
+        value: true
+      - key: NODE_ENV
+        value: production
+      - key: CI
+        value: false
