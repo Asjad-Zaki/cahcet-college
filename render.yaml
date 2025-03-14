@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: cahcetcollege-frontend
+    env: static
+    nodeVersion: 18.x
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://cahcetcollege-backend.onrender.com
+      - key: GENERATE_SOURCEMAP
+        value: false
+      - key: SKIP_PREFLIGHT_CHECK
+        value: true
+      - key: NODE_ENV
+        value: production 
