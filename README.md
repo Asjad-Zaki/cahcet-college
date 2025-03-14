@@ -2,7 +2,7 @@
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 
@@ -60,8 +60,8 @@ The College Management System is a comprehensive web application designed to mod
 ### Backend
 - **Express.js** - Server framework
 - **Node.js** - Runtime environment
-- **MongoDB** - Database
-- **Mongoose** - ODM
+- **MySQL** - Database
+- **Sequelize** - ORM for MySQL
 
 ### Authentication & Security
 - **Firebase Authentication** - User authentication
@@ -73,7 +73,7 @@ The College Management System is a comprehensive web application designed to mod
 
 Ensure you have the following installed:
 - Node.js (v14 or higher)
-- MongoDB
+- MySQL Server
 - Firebase Account
 - Git
 
@@ -95,13 +95,25 @@ Ensure you have the following installed:
    npm install
    ```
 
+3. **Set up MySQL Database**
+   ```bash
+   # Log into MySQL
+   mysql -u your_username -p
+
+   # Create the database
+   CREATE DATABASE college_management;
+   ```
+
 ## ⚙️ Configuration
 
 1. **Create Environment Variables**
    
    Create a `.env` file in the root directory:
    ```env
-   MONGO_URI=your_mongodb_connection_string
+   DB_HOST=localhost
+   DB_USER=your_mysql_username
+   DB_PASSWORD=your_mysql_password
+   DB_NAME=college_management
    FIREBASE_API_KEY=your_firebase_api_key
    FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
    FIREBASE_PROJECT_ID=your_firebase_project_id
