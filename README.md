@@ -163,10 +163,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Mohammed Faisal**
 - Email: [mdfaisalffz02@gmail.com](mailto:mdfaisalffz02@gmail.com)
-- GitHub: [@Asjad-Zaki](https://github.com/Asjad-Zaki)
 
 ---
-
+## Contributions
+**Mohammed Faisal**
+**Mohammed Asjad Zaki**
+**Mohammed Thalha**
 <div align="center">
-  <sub>Built with ❤️ by Mohammed Faisal</sub>
+  <sub>Built with ❤️</sub>
 </div>
