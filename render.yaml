@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 services:
   - type: web
     name: cahcetcollege-frontend
@@ -14,3 +15,29 @@ services:
         value: true
       - key: NODE_ENV
         value: production 
+=======
+# Exported from Render on 2025-03-14T10:52:38Z
+services:
+- type: web
+  name: cahcet-college-backend
+  runtime: node
+  repo: https://github.com/Asjad-Zaki/cahcet-college
+  plan: free
+  envVars:
+  - key: JWT_SECRET
+    sync: false
+  - key: MYSQL_PASSWORD
+    sync: false
+  - key: MYSQL_USER
+    sync: false
+  - key: MYSQL_DATABASE
+    sync: false
+  - key: MYSQL_PORT
+    sync: false
+  - key: MYSQL_HOST
+    sync: false
+  region: oregon
+  buildCommand: npm install && cd server && npm install
+  startCommand: npm run start
+version: "1"
+>>>>>>> 8e372ecffeb1b9978b0aa7456557fed31cf509a3
