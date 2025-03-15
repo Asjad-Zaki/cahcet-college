@@ -4,7 +4,7 @@ require('dotenv').config();
 let sequelize;
 
 if (process.env.MYSQL_HOST) {
-  // Use individual variables for Railway or local development
+  // Use environment variables for InfinityFree
   const {
     MYSQL_HOST,
     MYSQL_USER,
@@ -19,19 +19,25 @@ if (process.env.MYSQL_HOST) {
     dialect: 'mysql',
     logging: false,
     dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
+      connectTimeout: 60000
+    },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
     }
   });
 } else {
   // Fallback for local development
-  sequelize = new Sequelize('student', 'root', 'root', {
-    host: 'localhost',
+  sequelize = new Sequelize('if0_38519883_cahcetcollege', 'if0_38519883', '0DWsrNoWGnRCQB', {
+    host: 'sql206.infinityfree.com',
     port: 3306,
     dialect: 'mysql',
     logging: false,
+    dialectOptions: {
+      connectTimeout: 60000
+    }
   });
 }
 

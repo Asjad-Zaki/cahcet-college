@@ -28,11 +28,14 @@ services:
     name: cahcetcollege-frontend
     env: static
     nodeVersion: 18.x
-    buildCommand: npm install && npm run build
+    buildCommand: |
+      rm -f .browserslistrc
+      npm install
+      npm run build
     staticPublishPath: ./build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://cahcetcollege-backend.onrender.com
+        value: https://cahcet-college-backend.onrender.com
       - key: GENERATE_SOURCEMAP
         value: false
       - key: SKIP_PREFLIGHT_CHECK
@@ -41,3 +44,21 @@ services:
         value: production
       - key: CI
         value: false
+
+  - type: web
+    name: cahcet-college-backend
+    runtime: node
+    nodeVersion: 18.x
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
+    envVars:
+      - key: MYSQL_HOST
+        value: sql206.infinityfree.com
+      - key: MYSQL_PORT
+        value: 3306
+      - key: MYSQL_DATABASE
+        value: if0_38519883_cahcetcollege
+      - key: MYSQL_USER
+        value: if0_38519883
+      - key: MYSQL_PASSWORD
+        sync: false
