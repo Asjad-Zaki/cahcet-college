@@ -20,28 +20,9 @@
       "web-vitals": "^2.1.4"
     },
     "scripts": {
-      "postinstall": "chmod -R 755 ./node_modules/.bin",
       "start": "react-scripts start",
       "build": "CI=false GENERATE_SOURCEMAP=false react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject"
-    },
-    "browserslist": {
-      "production": [
-        ">0.2%",
-        "not dead",
-        "not op_mini all"
-      ],
-      "development": [
-        "last 1 chrome version",
-        "last 1 firefox version",
-        "last 1 safari version"
-      ]
-    },
-    "resolutions": {
-      "chalk": "4.1.2"
-    },
-    "devDependencies": {
-      "shx": "^0.3.4"
     }
-  }
+}

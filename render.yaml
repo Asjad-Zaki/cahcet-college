@@ -28,10 +28,7 @@ services:
     name: cahcetcollege-frontend
     env: static
     nodeVersion: 18.x
-    buildCommand: |
-      rm -f .browserslistrc
-      npm install
-      npm run build
+    buildCommand: npm install --legacy-peer-deps && npm run build
     staticPublishPath: ./build
     envVars:
       - key: REACT_APP_API_URL
