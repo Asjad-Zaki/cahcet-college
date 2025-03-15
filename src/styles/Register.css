@@ -16,7 +16,7 @@
   max-width: 100%;
 }
 
-h2 {
+.register-card h2 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 24px;
@@ -42,7 +42,7 @@ textarea.register-input {
   height: 100px;
 }
 
-button.register-submit {
+.register-submit {
   width: 100%;
   padding: 14px;
   background-color: #007bff;
@@ -54,7 +54,7 @@ button.register-submit {
   margin-top: 20px;
 }
 
-button.register-submit:hover {
+.register-submit:hover {
   background-color: #0056b3;
 }
 
