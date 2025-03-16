@@ -60,15 +60,17 @@ const StudentRegister = () => {
   // Submit the form data to the API endpoint
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Normalize optional fields before sending
     const normalizedData = normalizeOptionalFields(formData);
 
     try {
-      // Post the registration data to the server.
       const response = await axios.post(
-        `http://localhost:5000/api/students/register`,
-        normalizedData
+        "https://cahcetcollege-backend.onrender.com/api/students/register",
+        normalizedData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
       );
       console.log("Registration successful:", response.data);
       alert("Student registered successfully!");

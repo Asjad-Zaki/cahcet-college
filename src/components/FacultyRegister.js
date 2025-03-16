@@ -26,7 +26,15 @@ const FacultyRegister = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:5000/api/faculty/register`, formData);
+      const response = await axios.post(
+        'https://cahcetcollege-backend.onrender.com/api/faculty/register',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
       console.log('Registration successful:', response.data);
       alert('Faculty registered successfully');
       navigate('/');

@@ -14,10 +14,18 @@ const StudentLogin = () => {
     setError("");
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/students/login`, {
-        rollNumber: rollNo,
-        dob: dob,
-      });
+      const response = await axios.post(
+        "https://cahcetcollege-backend.onrender.com/api/students/login",
+        {
+          rollNumber: rollNo,
+          dob: dob,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      );
 
       const { token, studentDetails } = response.data;
 
@@ -28,10 +36,12 @@ const StudentLogin = () => {
       localStorage.setItem("studentBranch", studentDetails.branch);
       localStorage.setItem("studentDob", studentDetails.dob);
 
-      // Redirect to dashboard
       navigate("/student-dashboard");
     } catch (error) {
-      setError(error.response?.data?.message || "Login failed. Please try again.");
+      const errorMessage = error.response?.data?.message || 
+        "Login failed. Please check your credentials and try again.";
+      setError(errorMessage);
+      console.error("Login error:", error.response?.data || error.message);
     }
   };
 

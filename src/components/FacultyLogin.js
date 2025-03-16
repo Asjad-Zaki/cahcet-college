@@ -14,29 +14,50 @@ const FacultyLogin = () => {
     e.preventDefault();
     const auth = getAuth();
     try {
-      // Sign in with Firebase Auth
+      // Firebase authentication
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const idToken = await userCredential.user.getIdToken();
 
-      // Optionally store token/email in localStorage
+      // Store authentication data
       localStorage.setItem('facultyToken', idToken);
       localStorage.setItem('facultyEmail', email);
-      console.log(idToken);
-      // Send the idToken and email to your backend for verification and to fetch faculty details
-      const res = await axios.post(`http://localhost:5000/api/faculty/login`, { idToken, email });
+
+      // API call to backend
+      const res = await axios.post(
+        'https://cahcetcollege-backend.onrender.com/api/faculty/login',
+        { idToken, email },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+
       console.log("Faculty Details:", res.data.facultyDetails);
       navigate('/faculty-dashboard');
     } catch (error) {
-      console.error("Login error:", error.message);
-      alert("Login failed: " + error.message);
+      console.error("Login error:", error.response?.data || error.message);
+      alert("Login failed: " + (error.response?.data?.message || error.message));
     }
   };
 
   return (
     <form onSubmit={handleLogin}>
       <h2>Faculty Login</h2>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+        required
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+        required
+      />
       <button type="submit">Login</button>
     </form>
   );
