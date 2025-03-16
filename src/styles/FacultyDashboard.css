@@ -187,13 +187,6 @@ tr:hover {
 
 .btn-primary:hover {
   background-color: #16a085;
-}
-/* Add to your facultyDashboard.css file */
-.btn-primary {
-  transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -202,18 +195,8 @@ tr:hover {
   transform: translateY(1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-/* Header Buttons */
-.homebutton, .logout {
-  float: right;
-  margin: 10px 0 20px 0;
-  background-color: var(--secondary-color);
-  color: var(--white);
-  border: 2px solid #16a085;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-//Animations
+
+/* Header and Animation Buttons */
 .homebutton, .logout {
   float: right;
   margin: 10px 0 20px 0;
@@ -229,41 +212,20 @@ tr:hover {
   z-index: 1;
 }
 
-/* Modern hover effect with ripple */
-.homebutton:before, .logout:before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  z-index: -1;
-  transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
-}
-
-.homebutton:hover, .logout:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(22, 160, 133, 0.3);
-}
-
-.homebutton:hover:before, .logout:hover:before {
-  width: 300px;
-  height: 300px;
-  opacity: 1;
-}
-
-.homebutton:active, .logout:active {
-  transform: translateY(1px);
-  box-shadow: 0 3px 8px rgba(22, 160, 133, 0.3);
-}
-.logout {
-  position: absolute;
-  right: 20px;
+/* Sidebar Toggle with Animations */
+.sidebar-toggle {
+  position: fixed;
+  left: 20px;
   top: 20px;
+  z-index: 500;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 /* Student Search */
@@ -365,49 +327,6 @@ table input.attendance-input:focus {
   box-shadow: 0 0 3px rgba(26, 188, 156, 0.3);
 }
 
-/* Sidebar Toggle */
-.sidebar-toggle {
-  position: fixed;
-  left: 20px;
-  top: 20px;
-  z-index: 500;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-//New sidebar Animations
-.sidebar-toggle {
-  position: fixed;
-  left: 20px;
-  top: 20px;
-  z-index: 500;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-/* Hover effect */
-.sidebar-toggle:hover {
-  transform: rotate(5deg) scale(1.1);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  background: var(--primary-color-dark, #0f7263);
-}
-
-/* Active/click effect */
-.sidebar-toggle:active {
-  transform: scale(0.95);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-}
-
 /* Optional: Add a subtle pulse animation when the page loads */
 @keyframes pulse {
   0% { transform: scale(1); }
@@ -418,6 +337,7 @@ table input.attendance-input:focus {
 .sidebar-toggle-attention {
   animation: pulse 2s ease-in-out infinite;
 }
+
 /* Add these styles to your FacultyDashboard.css file */
 
 /* Attendance Toggle Button Styles */
