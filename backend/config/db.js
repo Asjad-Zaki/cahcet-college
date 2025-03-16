@@ -19,7 +19,10 @@ if (process.env.MYSQL_HOST) {
     dialect: 'mysql',
     logging: false,
     dialectOptions: {
-      connectTimeout: 60000
+      connectTimeout: 60000,
+      ssl: {
+        rejectUnauthorized: false
+      }
     },
     pool: {
       max: 5,
