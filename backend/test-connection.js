@@ -12,14 +12,12 @@ const {
 async function testConnection() {
   try {
     const connection = await mysql.createConnection({
-      host: MYSQL_HOST,
-      user: MYSQL_USER,
-      password: MYSQL_PASSWORD,
-      database: MYSQL_DATABASE,
-      port: MYSQL_PORT,
-      ssl: {
-        rejectUnauthorized: false
-      }
+      host: MYSQL_HOST || 'sql12.freesqldatabase.com',
+      user: MYSQL_USER || 'sql12768074',
+      password: MYSQL_PASSWORD || '1heSJ4HluT',
+      database: MYSQL_DATABASE || 'sql12768074',
+      port: MYSQL_PORT || 3306,
+      ssl: false
     });
 
     console.log('Successfully connected to the database.');
