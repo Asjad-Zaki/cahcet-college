@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
 import '../styles/FacultyDashboard.css';
 
+// Define the API URL based on environment
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://cahcetcollege-backend.onrender.com'
+  : 'http://localhost:5000';
+
 const FacultyDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState('details');
@@ -72,7 +77,7 @@ const FacultyDashboard = () => {
           return;
         }
         const headers = { Authorization: `Bearer ${token}` };
-        const res = await axios.get(`http://localhost:5000/api/faculty/details?email=${email}`, { headers });
+        const res = await axios.get(`${API_URL}/api/faculty/details?email=${email}`, { headers });
         setFacultyDetails(res.data);
       } catch (error) {
         console.error('Error fetching faculty details:', error.message);
@@ -90,7 +95,7 @@ const FacultyDashboard = () => {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/subjects/list`, {
+        const res = await axios.get(`${API_URL}/api/subjects/list`, {
           params: { batchYear: selectedAcademicYear, semester: selectedSemester, branch: selectedBranch },
         });
         setSubjects(res.data);
@@ -111,7 +116,7 @@ const FacultyDashboard = () => {
     }
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/faculty/students`, {
+      const res = await axios.get(`${API_URL}/api/faculty/students`, {
         params: {
           branch: selectedBranch,
           section: selectedSection,
@@ -123,6 +128,7 @@ const FacultyDashboard = () => {
       setAssessmentStudents(res.data);
     } catch (error) {
       console.error('Error fetching assessment students:', error.message);
+      alert('Error fetching students. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -136,7 +142,7 @@ const FacultyDashboard = () => {
     }
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/faculty/students`, {
+      const res = await axios.get(`${API_URL}/api/faculty/students`, {
         params: {
           branch: selectedBranch,
           section: selectedSection,
@@ -153,6 +159,7 @@ const FacultyDashboard = () => {
       setAttendanceStudents(studentsWithAttendance);
     } catch (error) {
       console.error('Error fetching attendance students:', error.message);
+      alert('Error fetching students. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -169,7 +176,7 @@ const FacultyDashboard = () => {
       marks: Math.min(parseFloat(student[selectedExamType] || 0), 100.0),
     }));
     try {
-      await axios.post(`http://localhost:5000/api/faculty/marks`, {
+      await axios.post(`${API_URL}/api/faculty/marks`, {
         branch: selectedBranch,
         section: selectedSection,
         semester: selectedSemester,
@@ -182,7 +189,7 @@ const FacultyDashboard = () => {
       setSelectedTab('details');
     } catch (error) {
       console.error('Error saving assessments:', error.message);
-      alert('Error saving assessments.');
+      alert('Error saving assessments. Please try again.');
     }
   };
 
@@ -195,33 +202,21 @@ const FacultyDashboard = () => {
   
     const attendanceData = attendanceStudents.map((student) => ({
       rollNumber: student.rollNumber,
-      record: student.record, // ✅ Ensure `record` is used, NOT `status`
+      record: student.record,
       attendance_date: selectedDate
     }));
   
-    // ✅ Debugging: Log the request payload
-    console.log("Sending Attendance Data:", {
-      branch: selectedBranch,
-      section: selectedSection,
-      semester: selectedSemester,
-      batchYear: selectedAcademicYear,
-      subject_code: selectedSubject, // ✅ Ensure correct field name
-      attendance_date: selectedDate,
-      attendanceData,
-    });
-  
     try {
-      const response = await axios.post(`http://localhost:5000/api/faculty/attendance`, {
+      const response = await axios.post(`${API_URL}/api/faculty/attendance`, {
         branch: selectedBranch,
         section: selectedSection,
         semester: selectedSemester,
         batchYear: selectedAcademicYear,
-        subject_code: selectedSubject, // ✅ Ensure correct field name
+        subject_code: selectedSubject,
         attendance_date: selectedDate,
         attendanceData,
       });
   
-      console.log("Response from Server:", response.data); // ✅ Debugging response
       alert('Attendance saved successfully!');
       setSelectedTab('details');
     } catch (error) {
@@ -239,7 +234,7 @@ const FacultyDashboard = () => {
 
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/api/faculty/attendance/percentage`, {
+      const response = await axios.get(`${API_URL}/api/faculty/attendance/percentage`, {
         params: {
           branch: selectedBranch,
           section: selectedSection,
@@ -250,11 +245,10 @@ const FacultyDashboard = () => {
           to_date: toDate
         }
       });
-
       setAttendancePercentages(response.data);
     } catch (error) {
       console.error('Error calculating attendance percentage:', error.message);
-      alert('Error calculating attendance percentage.');
+      alert('Error calculating attendance percentage. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -269,13 +263,13 @@ const FacultyDashboard = () => {
     try {
       setStudentLoading(true);
       setStudentError('');
-      const studentRes = await axios.get(`http://localhost:5000/api/students/${studentRollNoInput}`);
+      const studentRes = await axios.get(`${API_URL}/api/students/${studentRollNoInput}`);
       setStudentData(studentRes.data);
-      const marksRes = await axios.get(`http://localhost:5000/api/students/marks`, {
+      const marksRes = await axios.get(`${API_URL}/api/students/marks`, {
         params: { rollNumber: studentRollNoInput },
       });
       setStudentMarks(marksRes.data);
-      const attendanceRes = await axios.get(`http://localhost:5000/api/students/attendance`, {
+      const attendanceRes = await axios.get(`${API_URL}/api/students/attendance`, {
         params: { rollNumber: studentRollNoInput },
       });
       setStudentAttendance(attendanceRes.data);

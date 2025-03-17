@@ -45,12 +45,17 @@ const FacultyRegister = () => {
           }
         }
       );
-      console.log('Registration successful:', response.data);
-      alert('Faculty registered successfully');
-      navigate('/');
+      
+      if (response.data.uid) {
+        console.log('Registration successful:', response.data);
+        alert('Faculty registered successfully. Please login.');
+        navigate('/faculty-login');
+      } else {
+        throw new Error('Registration failed');
+      }
     } catch (err) {
       console.error('Error registering faculty:', err);
-      setError(err.response?.data?.message || 'Error occurred while registering. Please try again.');
+      setError(err.response?.data?.error || 'Error occurred while registering. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -89,7 +94,7 @@ const FacultyRegister = () => {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Password (min 6 characters)"
               name="password"
               value={formData.password}
               onChange={handleChange}

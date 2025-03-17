@@ -7,18 +7,28 @@ const admin = require("../firebaseAdmin"); // Firebase Admin SDK initialized in 
 
 
 router.post("/login", async (req, res) => {
-  const { idToken } = req.body; // Client sends the Firebase ID token
+  const { idToken } = req.body;
 
   if (!idToken) {
+    console.log("No ID token provided");
     return res.status(400).json({ message: "ID Token is required" });
   }
 
   try {
+    console.log("Attempting to verify token...");
     // Verify the Firebase ID token
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const email = decodedToken.email;
 
+    console.log("Token verified, email:", email);
+
+    if (!email) {
+      console.log("No email found in token");
+      return res.status(401).json({ message: "Invalid token: No email found" });
+    }
+
     // Fetch faculty details from the database using the email from Firebase
+    console.log("Fetching faculty details for email:", email);
     const faculty = await sequelize.query(
       "SELECT * FROM faculties WHERE email = :email",
       {
@@ -27,11 +37,15 @@ router.post("/login", async (req, res) => {
       }
     );
 
+    console.log("Faculty query result:", faculty);
+
     if (!faculty || faculty.length === 0) {
+      console.log("No faculty found for email:", email);
       return res.status(401).json({ message: "Faculty not found" });
     }
 
     // Respond with the faculty details
+    console.log("Sending faculty details response");
     res.json({
       facultyDetails: {
         id: faculty[0].id,
@@ -42,7 +56,32 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     console.error("Firebase token verification error:", error);
-    res.status(401).json({ message: "Unauthorized" });
+    console.error("Error details:", {
+      code: error.code,
+      message: error.message,
+      stack: error.stack
+    });
+    
+    // Handle specific Firebase errors
+    if (error.code === 'auth/id-token-expired') {
+      return res.status(401).json({ message: "Token expired. Please login again." });
+    }
+    if (error.code === 'auth/invalid-id-token') {
+      return res.status(401).json({ message: "Invalid token. Please login again." });
+    }
+    if (error.code === 'auth/argument-error') {
+      return res.status(400).json({ message: "Invalid token format" });
+    }
+    if (error.code === 'auth/invalid-credential') {
+      return res.status(401).json({ message: "Invalid credentials. Please check your email and password." });
+    }
+    
+    // Generic error response
+    res.status(401).json({ 
+      message: "Authentication failed",
+      error: error.message,
+      code: error.code
+    });
   }
 });
 
@@ -50,26 +89,53 @@ router.post("/register", async (req, res) => {
   const { name, email, password, branch } = req.body;
 
   try {
-    // Hash the password before storing
-   
-    // Insert the hashed password into the database
+    // First check if user already exists in Firebase
+    try {
+      await admin.auth().getUserByEmail(email);
+      return res.status(400).json({ error: "Email already registered" });
+    } catch (error) {
+      // User doesn't exist, proceed with registration
+      if (error.code !== 'auth/user-not-found') {
+        throw error;
+      }
+    }
+
+    // Create user in Firebase
+    const userRecord = await admin.auth().createUser({
+      email: email,
+      password: password,
+      displayName: name
+    });
+
+    // Insert into database
     const query = `
       INSERT INTO faculties (name, email, password, branch)
       VALUES (?, ?, ?, ?)
     `;
     
-    const values = [name, email, password, branch];
+    const values = [name, email, '**firebase**', branch];
 
     await sequelize.query(query, {
       replacements: values,
       type: QueryTypes.INSERT,
     });
 
-    res.status(201).json({ message: "Faculty registered successfully" });
-
+    res.status(201).json({ 
+      message: "Faculty registered successfully",
+      uid: userRecord.uid
+    });
   } catch (error) {
     console.error("Error registering faculty:", error);
-    res.status(500).json({ error: "Database error" });
+    if (error.code === 'auth/email-already-exists') {
+      return res.status(400).json({ error: "Email already registered" });
+    }
+    if (error.code === 'auth/invalid-email') {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
+    if (error.code === 'auth/weak-password') {
+      return res.status(400).json({ error: "Password should be at least 6 characters" });
+    }
+    res.status(500).json({ error: "Registration failed" });
   }
 });
 
