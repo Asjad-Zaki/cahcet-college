@@ -48,18 +48,21 @@ services:
 
   - type: web
     name: cahcetcollege-backend
-    runtime: node
-    nodeVersion: 18.x
+    env: node
     buildCommand: cd backend && npm install
     startCommand: cd backend && node server.js
     envVars:
-      - key: MYSQL_HOST
-        value: sql206.infinityfree.com
+      - key: JWT_SECRET
+        value: zaki
+      - key: MYSQL_PASSWORD
+        value: vrLR71QBBRyX4
+      - key: MYSQL_USER
+        value: if0_38523378
+      - key: MYSQL_DATABASE
+        value: if0_38523378_XXX
       - key: MYSQL_PORT
         value: 3306
-      - key: MYSQL_DATABASE
-        value: if0_38519883_cahcetcollege
-      - key: MYSQL_USER
-        value: if0_38519883
-      - key: MYSQL_PASSWORD
-        sync: false
+      - key: MYSQL_HOST
+        value: sql303.infinityfree.com
+      - key: FRONTEND_URL
+        value: https://cahcetcollege-frontend.onrender.com

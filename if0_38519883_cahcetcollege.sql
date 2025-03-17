@@ -1,5 +1,5 @@
 
-USE if0_38519883_cahcetcollege;
+USE if0_38523378_XXX;
    CREATE TABLE subjects (
   subject_id INT AUTO_INCREMENT PRIMARY KEY,
   subject_code VARCHAR(50) NOT NULL, 

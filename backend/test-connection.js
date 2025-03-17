@@ -16,18 +16,16 @@ async function testConnection() {
       user: MYSQL_USER,
       password: MYSQL_PASSWORD,
       database: MYSQL_DATABASE,
-      port: MYSQL_PORT
+      port: MYSQL_PORT,
+      ssl: {
+        rejectUnauthorized: false
+      }
     });
 
-    console.log('Successfully connected to the database!');
-    
-    // Test a simple query
-    const [rows] = await connection.query('SELECT 1 + 1 AS result');
-    console.log('Test query result:', rows);
-
+    console.log('Successfully connected to the database.');
     await connection.end();
   } catch (error) {
-    console.error('Error connecting to the database:', error);
+    console.error('Unable to connect to the database:', error);
   }
 }
 

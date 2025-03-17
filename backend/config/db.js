@@ -32,14 +32,23 @@ if (process.env.MYSQL_HOST) {
     }
   });
 } else {
-  // Fallback for local development
-  sequelize = new Sequelize('if0_38519883_cahcetcollege', 'if0_38519883', '0DWsrNoWGnRCQB', {
-    host: 'sql206.infinityfree.com',
+  // Fallback configuration
+  sequelize = new Sequelize('if0_38523378_XXX', 'if0_38523378', 'vrLR71QBBRyX4', {
+    host: 'sql303.infinityfree.com',
     port: 3306,
     dialect: 'mysql',
     logging: false,
     dialectOptions: {
-      connectTimeout: 60000
+      connectTimeout: 60000,
+      ssl: {
+        rejectUnauthorized: false
+      }
+    },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
     }
   });
 }
