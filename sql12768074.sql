@@ -1,5 +1,5 @@
 
-USE if0_38523378_XXX;
+USE sql12768074;
    CREATE TABLE subjects (
   subject_id INT AUTO_INCREMENT PRIMARY KEY,
   subject_code VARCHAR(50) NOT NULL, 
