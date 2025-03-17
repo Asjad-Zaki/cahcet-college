@@ -4,7 +4,7 @@ require('dotenv').config();
 let sequelize;
 
 if (process.env.MYSQL_HOST) {
-  // Use environment variables for InfinityFree
+  // Use environment variables for database connection
   const {
     MYSQL_HOST,
     MYSQL_USER,
@@ -33,8 +33,8 @@ if (process.env.MYSQL_HOST) {
   });
 } else {
   // Fallback configuration
-  sequelize = new Sequelize('if0_38523378_XXX', 'if0_38523378', 'vrLR71QBBRyX4', {
-    host: 'sql303.infinityfree.com',
+  sequelize = new Sequelize('sql12768074', 'sql12768074', '1heSJ4HluT', {
+    host: 'sql12.freesqldatabase.com',
     port: 3306,
     dialect: 'mysql',
     logging: false,

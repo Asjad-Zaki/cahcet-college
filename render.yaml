@@ -55,14 +55,14 @@ services:
       - key: JWT_SECRET
         value: zaki
       - key: MYSQL_PASSWORD
-        value: vrLR71QBBRyX4
+        value: 1heSJ4HluT
       - key: MYSQL_USER
-        value: if0_38523378
+        value: sql12768074
       - key: MYSQL_DATABASE
-        value: if0_38523378_XXX
+        value: sql12768074
       - key: MYSQL_PORT
         value: 3306
       - key: MYSQL_HOST
-        value: sql303.infinityfree.com
+        value: sql12.freesqldatabase.com
       - key: FRONTEND_URL
         value: https://cahcetcollege-frontend.onrender.com
